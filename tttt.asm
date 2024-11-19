@@ -602,7 +602,6 @@ clear_bird:
 
 	pop es
 	pop di
-	pop ax
 	pop bp
 	ret 2
 
