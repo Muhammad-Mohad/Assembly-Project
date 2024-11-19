@@ -158,7 +158,7 @@ clear_pipe:
 	mov cx, 22
 	
 	mov al, ' '
-	mov ah, 0x70
+	mov ah, 0x3f
 	
 	l1:	
 		mov [es:di], ax
@@ -190,7 +190,7 @@ background:
 	mov es, ax 
 	mov di, 0
 
-	mov ah, 0x70
+	mov ah, 0x3f
 	mov al, ' '
 	mov cx, 1760
 	
@@ -237,7 +237,7 @@ ground:
 	mov es, ax 
 	mov di, 3520
 
-	mov ah, 0x07
+	mov ah, 0x67
 	mov al, '.'
 	mov cx, 240
 	
@@ -304,7 +304,7 @@ obstacle:
 	mov es, ax
 	
 	mov cx, [bp + 4]    ; obstacle height
-	mov ah, 0x70
+	mov ah, 0x3f
 	mov al, ' '         ; clear with spaces
 	
 	clear_upper:
@@ -378,7 +378,7 @@ obstacle:
 	mov es, ax
 	
 	mov cx, [bp + 4]          ; obstacle height
-	mov ah, 0x10
+	mov ah, 0x20
 	mov al, '.'               ; draw the obstacle
 	
 	len:
@@ -795,7 +795,7 @@ start_screen:
 	mov al, '-'
 	add di, 2
 	mov [es:di], ax
-	mov al, '0'
+	mov al, 'O'
 	add di, 2
 	mov [es:di], ax
 	mov al, '7'
@@ -848,7 +848,7 @@ start_screen:
 	mov al, '3'
 	mov [es:di], ax
 	add di, 2
-	mov al, '0'
+	mov al, 'O'
 	mov [es:di], ax
 	add di, 2
 	mov al, '4'
@@ -862,7 +862,7 @@ start_screen:
 	
 	mov di, 3094
 	mov al, 'P'
-	mov ah, 0x70
+	mov ah, 0xf0
 	mov [es:di], ax
 	add di, 2
 	mov al, 'r'
@@ -937,6 +937,70 @@ start_screen:
 	mov al, 'e'
 	mov [es:di], ax
 	
+	mov ah, 0x70
+	mov di, 550
+	mov al, 'W'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'e'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'l'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'c'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'o'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'm'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'e'
+	mov [es:di], ax
+	add di, 314
+	mov al, 'T'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'o'
+	mov [es:di], ax
+	
+	mov ah, 0x71
+	mov di, 0
+	mov al, '('
+	mov [es:di], ax
+	add di, 2
+	mov al, 'F'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'a'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'l'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'l'
+	mov [es:di], ax
+	add di, 2
+	mov al, ' '
+	mov [es:di], ax
+	add di, 2
+	mov al, '2'
+	mov [es:di], ax
+	add di, 2
+	mov al, 'O'
+	mov [es:di], ax
+	add di, 2
+	mov al, '2'
+	mov [es:di], ax
+	add di, 2
+	mov al, '4'
+	mov [es:di], ax
+	add di, 2
+	mov al, ')'
+	mov [es:di], ax
+	
 	
     pop cx
     pop di
@@ -954,7 +1018,7 @@ clear_bird:
 	mov ax, 0xb800
 	mov es, ax
 
-	mov ah, 0x70
+	mov ah, 0x3f
 	mov al, ' '
 	mov di, [bp + 4]
 	mov [es:di], ax
