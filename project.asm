@@ -58,7 +58,9 @@ check_collision:
 	; checking collision with obstacle 1
 	mov ax, [object1]
 	mov bx, [bird_start]
-	add bx, 6
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
@@ -107,7 +109,9 @@ check_collision:
 	; checking collision with obstacle 2
 	mov ax, [object2]
 	mov bx, [bird_start]
-	add bx, 6
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
@@ -156,7 +160,9 @@ check_collision:
 	; checking collision with obstacle 3
 	mov ax, [object3]
 	mov bx, [bird_start]
-	add bx, 6
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
