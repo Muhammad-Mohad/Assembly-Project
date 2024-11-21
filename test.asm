@@ -479,6 +479,103 @@ bird:
 	pop bp
 	ret 2
 
+clear_bird:
+	push bp
+	mov bp, sp
+	push es
+	push ax
+	push di
+	
+	mov ax, 0xb800
+	mov es, ax
+
+	mov ah, 0x3f
+	mov al, ' '
+	mov di, [bp + 4]
+	mov [es:di], ax
+	mov al, ' '
+	add di, 2
+	mov [es:di], ax
+	mov al, ' '
+	add di, 2
+	mov [es:di], ax
+
+	pop es
+	pop di
+	pop ax
+	pop bp
+	ret 2
+
+status:
+    call delay
+    push ax
+    cmp byte [bird_status], 'd'
+    je bird_down
+    cmp byte [bird_status], 'u'
+    je bird_up
+
+return:
+    pop ax
+    ret
+
+bird_down:
+	push word [bird_start]
+	call clear_bird
+    mov ax, 160
+    add word [bird_start], ax
+    push word [bird_start]
+	call bird
+    jmp return
+
+bird_up:
+	push word [bird_start]
+	call clear_bird
+    cmp word [bird_start], 20
+    je stay_at_top
+    mov ax, 160
+    sub word [bird_start], ax
+    push word [bird_start]
+	call bird
+    jmp return
+
+stay_at_top:
+    push word [bird_start]
+    call bird
+    jmp return
+
+movement:
+    push ax
+    push bx
+    in al, 0x60
+    cmp al, 0x48
+    je go_up
+    cmp al, 0xc8
+    je go_down
+    cmp al, 0x01
+    je end
+    jmp end_service
+
+go_up:
+    mov byte [bird_status], 'u'
+    jmp end_service
+go_down:
+    mov byte [bird_status], 'd'
+    jmp end_service
+
+end_service:
+    mov al, 0x20
+    out 0x20, al
+    pop bx
+    pop ax
+    iret
+
+waait:
+    in al, 0x64
+    and al, 1
+    jz waait
+    sti
+    jmp resume
+
 start_screen:
     push ax
     push es
@@ -1007,100 +1104,3 @@ start_screen:
     pop es
     pop ax
 	ret
-
-clear_bird:
-	push bp
-	mov bp, sp
-	push es
-	push ax
-	push di
-	
-	mov ax, 0xb800
-	mov es, ax
-
-	mov ah, 0x3f
-	mov al, ' '
-	mov di, [bp + 4]
-	mov [es:di], ax
-	mov al, ' '
-	add di, 2
-	mov [es:di], ax
-	mov al, ' '
-	add di, 2
-	mov [es:di], ax
-
-	pop es
-	pop di
-	pop ax
-	pop bp
-	ret 2
-
-status:
-    call delay
-    push ax
-    cmp byte [bird_status], 'd'
-    je bird_down
-    cmp byte [bird_status], 'u'
-    je bird_up
-
-return:
-    pop ax
-    ret
-
-bird_down:
-	push word [bird_start]
-	call clear_bird
-    mov ax, 160
-    add word [bird_start], ax
-    push word [bird_start]
-	call bird
-    jmp return
-
-bird_up:
-	push word [bird_start]
-	call clear_bird
-    cmp word [bird_start], 20
-    je stay_at_top
-    mov ax, 160
-    sub word [bird_start], ax
-    push word [bird_start]
-	call bird
-    jmp return
-
-stay_at_top:
-    push word [bird_start]
-    call bird
-    jmp return
-
-movement:
-    push ax
-    push bx
-    in al, 0x60
-    cmp al, 0x48
-    je go_up
-    cmp al, 0xc8
-    je go_down
-    cmp al, 0x01
-    je end
-    jmp end_service
-
-go_up:
-    mov byte [bird_status], 'u'
-    jmp end_service
-go_down:
-    mov byte [bird_status], 'd'
-    jmp end_service
-
-end_service:
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop ax
-    iret
-
-waait:
-    in al, 0x64
-    and al, 1
-    jz waait
-    sti
-    jmp resume
