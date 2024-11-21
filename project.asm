@@ -7,7 +7,7 @@ object2: dw 100
 object3: dw 150
 height1: dw 8
 height2: dw 5
-height3: dw 10
+height3: dw 12
 bird_start: dw 1460
 bird_status: db 'd'
 bird_delay: dw 0
@@ -54,6 +54,154 @@ check_collision:
     ; Check if bird hits the ground (bottom of screen)
     cmp word [bird_start], 3520    ; Bottom screen limit
     jae collision_detected
+
+	; checking collision with obstacle 1
+	mov ax, [object1]
+	mov bx, [bird_start]
+	add bx, 6
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 2
+	mov ax, [object2]
+	mov bx, [bird_start]
+	add bx, 6
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 3
+	mov ax, [object3]
+	mov bx, [bird_start]
+	add bx, 6
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
     
     pop dx
     pop bx
