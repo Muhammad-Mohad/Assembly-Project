@@ -14,6 +14,7 @@ bird_delay: dw 0
 seed: dw 987
 oldisr: dd 0
 game_over: db 0
+score: dw 0 
 
 start:
     ; removes that blinking underscore
@@ -81,9 +82,6 @@ check_collision:
 	add ax, 160
 	cmp ax, bx
 	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
 	add ax, 1120
 	cmp ax, bx
 	je collision_detected
@@ -109,9 +107,6 @@ check_collision:
 	; checking collision with obstacle 2
 	mov ax, [object2]
 	mov bx, [bird_start]
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
@@ -160,9 +155,6 @@ check_collision:
 	; checking collision with obstacle 3
 	mov ax, [object3]
 	mov bx, [bird_start]
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
@@ -732,11 +724,11 @@ movement:
     push ax
     push bx
     in al, 0x60
-    cmp al, 0x48
+    cmp al, 0x48			; up key
     je go_up
-    cmp al, 0xc8
+    cmp al, 0xc8			; up key released
     je go_down
-    cmp al, 0x01
+    cmp al, 0x01             ; esc key
     je end
     jmp end_service
 
