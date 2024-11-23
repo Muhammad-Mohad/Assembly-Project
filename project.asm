@@ -41,10 +41,11 @@ continue:
     cmp byte [game_over], 1    ; Check if game is over
     je end                      ; If game over, end the game
     call clear
-    call move_ground
+    ; call move_ground
     call ground
     call animation
     call check_collision       ; Add collision detection
+	call update_score
     jmp continue 
 
 check_collision:
@@ -200,6 +201,154 @@ check_collision:
 	cmp ax, bx
 	je collision_detected
 
+
+	; checking collision with obstacle 1
+	mov ax, [object1]
+	mov bx, [bird_start]
+	add bx, 4
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 2
+	mov ax, [object2]
+	mov bx, [bird_start]
+	add bx, 4
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 3
+	mov ax, [object3]
+	mov bx, [bird_start]
+	add bx, 4
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
     
     pop dx
     pop bx
@@ -234,6 +383,56 @@ end:
     mov ax, 0x0720
     rep stosw
 
+	mov ah, 0x84
+	mov al, 'G'
+	mov di, 1670
+	mov [es:di], ax
+	mov al, 'a'
+	mov [es:di+2], ax
+	mov al, 'm'
+	mov [es:di+4], ax
+	mov al, 'e'
+	mov [es:di+6], ax
+	mov al, ' '
+	mov [es:di+8], ax
+	mov al, 'O'
+	mov [es:di+10], ax
+	mov al, 'v'
+	mov [es:di+12], ax
+	mov al, 'e'
+	mov [es:di+14], ax
+	mov al, 'r'
+	mov [es:di+16], ax
+	mov al, '!'
+	mov [es:di+18], ax
+
+	mov ah, 0x02
+	mov al, 'S'
+	mov di, 2308
+	mov [es:di], ax
+	mov al, 'c'
+	mov [es:di+2], ax
+	mov al, 'o'
+	mov [es:di+4], ax
+	mov al, 'r'
+	mov [es:di+6], ax
+	mov al, 'e'
+	mov [es:di+8], ax
+	mov al, ' '
+	mov [es:di+10], ax
+	mov al, 'w'
+	mov [es:di+12], ax
+	mov al, 'a'
+	mov [es:di+14], ax
+	mov al, 's'
+	mov [es:di+16], ax
+	mov al, ' '
+	mov [es:di+18], ax
+	push 0x02      ; attribute
+	push 2328		   ; di value
+	push word [score]    ; number to display
+	call print_score
+
     mov al, 0x20
     out 0x20, al
 
@@ -241,6 +440,87 @@ end:
 
     mov ax, 0x4c00
     int 0x21
+
+update_score:
+	push bp
+	mov bp, sp
+	mov ax, 0xb800
+	mov es, ax
+	mov ah, 0x3f
+	mov al, 'S'
+	mov [es:0], ax
+	mov al, 'c'
+	mov [es:2], ax
+	mov al, 'o'
+	mov [es:4], ax
+	mov al, 'r'
+	mov [es:6], ax
+	mov al, 'e'
+	mov [es:8], ax
+	mov al, ':'
+	mov [es:10], ax
+	mov al, ' '
+	mov [es:12], ax
+
+	cmp word [object1], 10
+	je update
+	cmp word [object2], 10
+	je update
+	cmp word [object3], 10
+	je update
+
+	back:
+		push 0x3f
+		push 14
+		push word [score]
+		call print_score
+		pop bp
+		ret
+
+update:
+	mov ax, [score]
+	inc ax
+	mov word [score], ax
+	jmp back
+
+print_score:
+	push bp
+	mov  bp, sp 
+	push es 
+	push ax 
+	push bx 
+	push cx 
+	push dx 
+	push di 
+	mov  ax, 0xb800 
+	mov  es, ax             
+	mov  ax, [bp+4]        
+	mov  bx, 10          
+	mov  cx, 0             
+nextdigit:
+	mov  dx, 0             
+	div  bx                
+	add  dl, 0x30         
+	push dx                
+	inc  cx                 
+	cmp  ax, 0               
+	jnz  nextdigit           
+	mov  di, [bp + 6]           
+nextpos:      
+	pop  dx                   
+	mov  dh, [bp + 8]      
+	mov [es:di], dx          
+	add  di, 2               
+	loop nextpos            
+
+	pop  di 
+	pop  dx 
+	pop  cx 
+	pop  bx 
+	pop  ax 
+	pop  es 
+	pop  bp 
+	ret  6
 
 clearpipe1:
 	mov word [object1], 156
@@ -258,6 +538,9 @@ clearpipe3:
 	jmp continue_animation_3
 	
 animation:
+    check:
+		call status
+		
 	continue_animation_1:
 		push word [object1]
 		push word [height1]
@@ -282,8 +565,6 @@ animation:
 		cmp word [object3], 0
 		jz clearpipe3
 
-    check:
-		call status
 		
 	call delay1
 	call delay1
@@ -694,7 +975,7 @@ bird_up:
     cmp word [bird_start], 20
     jle stay_at_top  
 
-    mov ax, 640
+    mov ax, 480
     sub word [bird_start], ax
     cmp word [bird_start], 20
     jl set_to_top  
