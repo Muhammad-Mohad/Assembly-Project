@@ -36,6 +36,7 @@ start:
     
 resume:
     call background
+	jmp wait_for_another_key
 
 continue:
     cmp byte [game_over], 1    ; Check if game is over
@@ -1032,6 +1033,13 @@ wait_for_key:
     jz wait_for_key
     sti
     jmp resume
+
+wait_for_another_key:
+	in al, 0x64
+    and al, 1
+    jz wait_for_another_key
+    sti
+    jmp continue
 
 start_screen:
     push ax
