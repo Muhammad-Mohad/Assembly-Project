@@ -727,15 +727,91 @@ go_down:
 
 pause_the_game:
 	pause_loop:
+		mov di, 3682
+		mov ax, 0xb800
+		mov es, ax
+		mov ah, 0x67
+		mov al, 'P'
+		mov [es:di], ax
+		mov al, 'r'
+		mov [es:di+2], ax
+		mov al, 'e'
+		mov [es:di+4], ax
+		mov al, 's'
+		mov [es:di+6], ax
+		mov al, 's'
+		mov [es:di+8], ax
+		mov al, ' '
+		mov [es:di+10], ax
+		mov al, '"'
+		mov [es:di+12], ax
+		mov al, 'R'
+		mov [es:di+14], ax
+		mov al, '"'
+		mov [es:di+16], ax
+		mov al, ' '
+		mov [es:di+18], ax
+		mov al, 'T'
+		mov [es:di+20], ax
+		mov al, 'o'
+		mov [es:di+22], ax
+		mov al, ' '
+		mov [es:di+24], ax
+		mov al, 'R'
+		mov [es:di+26], ax
+		mov al, 'e'
+		mov [es:di+28], ax
+		mov al, 's'
+		mov [es:di+30], ax
+		mov al, 'u'
+		mov [es:di+32], ax
+		mov al, 'm'
+		mov [es:di+34], ax
+		mov al, 'e'
+		mov [es:di+36], ax
+
+		mov di, 3804
+		mov al, 'P'
+		mov [es:di], ax
+		mov al, 'r'
+		mov [es:di+2], ax
+		mov al, 'e'
+		mov [es:di+4], ax
+		mov al, 's'
+		mov [es:di+6], ax
+		mov al, 's'
+		mov [es:di+8], ax
+		mov al, ' '
+		mov [es:di+10], ax
+		mov al, '"'
+		mov [es:di+12], ax
+		mov al, 'Q'
+		mov [es:di+14], ax
+		mov al, '"'
+		mov [es:di+16], ax
+		mov al, ' '
+		mov [es:di+18], ax
+		mov al, 'T'
+		mov [es:di+20], ax
+		mov al, 'o'
+		mov [es:di+22], ax
+		mov al, ' '
+		mov [es:di+24], ax
+		mov al, 'Q'
+		mov [es:di+26], ax
+		mov al, 'u'
+		mov [es:di+28], ax
+		mov al, 'i'
+		mov [es:di+30], ax
+		mov al, 't'
+		mov [es:di+32], ax
+
 		in al, 0x60            
 		cmp al, 0x13        ; R key    
 		je end_service         
 		cmp al, 0x10        ; Q key  
 		je end                 
 		jmp pause_loop        
-
-play:
-	jmp end_service
 
 end_service:
     mov al, 0x20
