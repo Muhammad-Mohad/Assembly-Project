@@ -716,10 +716,6 @@ movement:
     je go_down
     cmp al, 0x01             ; esc key
     je pause_the_game
-	cmp al, 0x13             ; R key
-	je play
-	cmp al, 0x10             ; Q key
-	je end
     jmp end_service
 
 go_up:
@@ -732,9 +728,9 @@ go_down:
 pause_the_game:
 	pause_loop:
 		in al, 0x60            
-		cmp al, 0x13          
+		cmp al, 0x13        ; R key    
 		je end_service         
-		cmp al, 0x10           
+		cmp al, 0x10        ; Q key  
 		je end                 
 		jmp pause_loop        
 
@@ -1796,4 +1792,4 @@ display_instructions:
 	pop cx
 	pop ax
 	pop es
-	ret
+	ret	
