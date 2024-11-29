@@ -32,7 +32,7 @@ start:
     mov word [es:9*4], movement
     mov word [es:9*4+2], cs
     call start_screen
-    jmp waait
+    jmp wait_for_key
     
 resume:
     call background
@@ -1026,10 +1026,10 @@ end_service:
     pop ax
     iret
 
-waait:
+wait_for_key:
     in al, 0x64
     and al, 1
-    jz waait
+    jz wait_for_key
     sti
     jmp resume
 
