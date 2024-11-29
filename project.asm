@@ -41,7 +41,6 @@ continue:
     cmp byte [game_over], 1    ; Check if game is over
     je end                      ; If game over, end the game
     call clear
-    ; call move_ground
     call ground
     call animation
     call check_collision       ; Add collision detection
