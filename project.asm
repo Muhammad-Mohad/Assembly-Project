@@ -35,8 +35,8 @@ start:
     jmp wait_for_key
     
 resume:
+	call display_instructions
     call background
-	jmp wait_for_another_key
 
 continue:
     cmp byte [game_over], 1    ; Check if game is over
@@ -47,313 +47,6 @@ continue:
     call check_collision       ; Add collision detection
 	call update_score
     jmp continue 
-
-check_collision:
-    push ax
-    push bx
-    push dx
-    
-    ; Check if bird hits the ground (bottom of screen)
-    cmp word [bird_start], 3520    ; Bottom screen limit
-    jae collision_detected
-
-	; checking collision with obstacle 1
-	mov ax, [object1]
-	mov bx, [bird_start]
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 1120
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-
-	; checking collision with obstacle 2
-	mov ax, [object2]
-	mov bx, [bird_start]
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 1120
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-
-	; checking collision with obstacle 3
-	mov ax, [object3]
-	mov bx, [bird_start]
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 1120
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-
-
-	; checking collision with obstacle 1
-	mov ax, [object1]
-	mov bx, [bird_start]
-	add bx, 4
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 1120
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-
-	; checking collision with obstacle 2
-	mov ax, [object2]
-	mov bx, [bird_start]
-	add bx, 4
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 1120
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-
-	; checking collision with obstacle 3
-	mov ax, [object3]
-	mov bx, [bird_start]
-	add bx, 4
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 1120
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-	add ax, 160
-	cmp ax, bx
-	je collision_detected
-
-    
-    pop dx
-    pop bx
-    pop ax
-    ret
 
 collision_detected:
     mov byte [game_over], 1    ; Set game over flag
@@ -689,6 +382,18 @@ delay1:
 	delay1_loop:
 		loop delay1_loop
 	ret
+
+delay2:
+    mov cx, 0xffff        
+outer_loop:
+    push cx                
+    mov cx, 0xff       
+inner_loop:
+    loop inner_loop        
+    pop cx                 
+    loop outer_loop        
+    ret
+
 	
 move_ground:
 	push di
@@ -1033,13 +738,6 @@ wait_for_key:
     jz wait_for_key
     sti
     jmp resume
-
-wait_for_another_key:
-	in al, 0x64
-    and al, 1
-    jz wait_for_another_key
-    sti
-    jmp continue
 
 start_screen:
     push ax
@@ -1568,4 +1266,518 @@ start_screen:
     pop di
     pop es
     pop ax
+	ret
+
+check_collision:
+    push ax
+    push bx
+    push dx
+    
+    ; Check if bird hits the ground (bottom of screen)
+    cmp word [bird_start], 3520    ; Bottom screen limit
+    jae collision_detected
+
+	; checking collision with obstacle 1
+	mov ax, [object1]
+	mov bx, [bird_start]
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 2
+	mov ax, [object2]
+	mov bx, [bird_start]
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 3
+	mov ax, [object3]
+	mov bx, [bird_start]
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+
+	; checking collision with obstacle 1
+	mov ax, [object1]
+	mov bx, [bird_start]
+	add bx, 4
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 2
+	mov ax, [object2]
+	mov bx, [bird_start]
+	add bx, 4
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+	; checking collision with obstacle 3
+	mov ax, [object3]
+	mov bx, [bird_start]
+	add bx, 4
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 1120
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+	add ax, 160
+	cmp ax, bx
+	je collision_detected
+
+    
+    pop dx
+    pop bx
+    pop ax
+    ret
+
+display_instructions:
+	push es
+	push ax
+	push cx
+	push di
+
+	mov ax, 0xb800
+	mov es, ax 
+	mov di, 0
+
+	mov ah, 0x3f
+	mov al, ' '
+	mov cx, 2000
+	
+	cld 
+	rep stosw
+
+	mov ah, 0x3f
+	mov al, 'I'
+	mov di, 386
+	mov [es:di], ax 
+	mov al, 'n'
+	mov [es:di + 2], ax 
+	mov al, 's'
+	mov [es:di + 4], ax 
+	mov al, 't'
+	mov [es:di + 6], ax 
+	mov al, 'r'
+	mov [es:di + 8], ax 
+	mov al, 'u'
+	mov [es:di + 10], ax 
+	mov al, 'c'
+	mov [es:di + 12], ax 
+	mov al, 't'
+	mov [es:di + 14], ax 
+	mov al, 'i'
+	mov [es:di + 16], ax 
+	mov al, 'o'
+	mov [es:di + 18], ax 
+	mov al, 'n'
+	mov [es:di + 20], ax 
+	mov al, 's'
+	mov [es:di + 22], ax 
+	
+	mov al, 'P'
+	mov di, 3204
+	mov [es:di], ax
+	mov al, 'r'
+	mov [es:di+2], ax
+	mov al, 'e'
+	mov [es:di+4], ax
+	mov al, 's'
+	mov [es:di+6], ax
+	mov al, 's'
+	mov [es:di+8], ax
+	mov al, ' '
+	mov [es:di+10], ax
+	mov al, '"'
+	mov [es:di+12], ax
+	mov al, 'U'
+	mov [es:di+14], ax
+	mov al, 'p'
+	mov [es:di+16], ax
+	mov al, '"'
+	mov [es:di+18], ax
+	mov al, ' '
+	mov [es:di+20], ax
+	mov al, 'K'
+	mov [es:di+22], ax
+	mov al, 'e'
+	mov [es:di+24], ax
+	mov al, 'y'
+	mov [es:di+26], ax
+	mov al, ' '
+	mov [es:di+28], ax
+	mov al, 'T'
+	mov [es:di+30], ax
+	mov al, 'o'
+	mov [es:di+32], ax
+	mov al, ' '
+	mov [es:di+34], ax
+	mov al, 'F'
+	mov [es:di+36], ax
+	mov al, 'l'
+	mov [es:di+38], ax
+	mov al, 'y'
+	mov [es:di+40], ax
+	
+	mov di, 3308
+	mov al, 'P'
+	mov [es:di], ax
+	mov al, 'r'
+	mov [es:di+2], ax
+	mov al, 'e'
+	mov [es:di+4], ax
+	mov al, 's'
+	mov [es:di+6], ax
+	mov al, 's'
+	mov [es:di+8], ax
+	mov al, ' '
+	mov [es:di+10], ax
+	mov al, '"'
+	mov [es:di+12], ax
+	mov al, 'E'
+	mov [es:di+14], ax
+	mov al, 's'
+	mov [es:di+16], ax
+	mov al, 'c'
+	mov [es:di+18], ax
+	mov al, '"'
+	mov [es:di+20], ax
+	mov al, ' '
+	mov [es:di+22], ax
+	mov al, 'K'
+	mov [es:di+24], ax
+	mov al, 'e'
+	mov [es:di+26], ax
+	mov al, 'y'
+	mov [es:di+28], ax
+	mov al, ' '
+	mov [es:di+30], ax
+	mov al, 'T'
+	mov [es:di+32], ax
+	mov al, 'o'
+	mov [es:di+34], ax
+	mov al, ' '
+	mov [es:di+36], ax
+	mov al, 'P'
+	mov [es:di+38], ax
+	mov al, 'a'
+	mov [es:di+40], ax
+	mov al, 'u'
+	mov [es:di+42], ax
+	mov al, 's'
+	mov [es:di+44], ax
+	mov al, 'e'
+	mov [es:di+46], ax
+	
+	mov ah, 0xb4
+	mov di, 1810
+	mov al, 'D'
+	mov [es:di], ax
+	mov al, 'o'
+	mov [es:di+2], ax
+	mov al, ' '
+	mov [es:di+4], ax
+	mov al, 'N'
+	mov [es:di+6], ax
+	mov al, 'o'
+	mov [es:di+8], ax
+	mov al, 't'
+	mov [es:di+10], ax
+	mov al, ' '
+	mov [es:di+12], ax
+	mov al, 'C'
+	mov [es:di+14], ax
+	mov al, 'o'
+	mov [es:di+16], ax
+	mov al, 'l'
+	mov [es:di+18], ax
+	mov al, 'l'
+	mov [es:di+20], ax
+	mov al, 'i'
+	mov [es:di+22], ax
+	mov al, 'd'
+	mov [es:di+24], ax
+	mov al, 'e'
+	mov [es:di+26], ax
+	mov al, ' '
+	mov [es:di+28], ax
+	mov al, 'W'
+	mov [es:di+30], ax
+	mov al, 'i'
+	mov [es:di+32], ax
+	mov al, 't'
+	mov [es:di+34], ax
+	mov al, 'h'
+	mov [es:di+36], ax
+	mov al, ' '
+	mov [es:di+38], ax
+	mov al, 'T'
+	mov [es:di+40], ax
+	mov al, 'h'
+	mov [es:di+42], ax
+	mov al, 'e'
+	mov [es:di+44], ax
+	mov al, ' '
+	mov [es:di+46], ax
+	mov al, 'P'
+	mov [es:di+48], ax
+	mov al, 'i'
+	mov [es:di+50], ax
+	mov al, 'p'
+	mov [es:di+52], ax
+	mov al, 'e'
+	mov [es:di+54], ax
+	mov al, 's'
+	mov [es:di+56], ax
+
+	call delay2
+
+	pop di 
+	pop cx
+	pop ax
+	pop es
 	ret
