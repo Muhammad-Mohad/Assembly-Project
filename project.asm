@@ -715,7 +715,11 @@ movement:
     cmp al, 0xc8			; up key released
     je go_down
     cmp al, 0x01             ; esc key
-    je end
+    je pause_the_game
+	cmp al, 0x13             ; R key
+	je play
+	cmp al, 0x10             ; Q key
+	je end
     jmp end_service
 
 go_up:
@@ -724,6 +728,18 @@ go_up:
 go_down:
     mov byte [bird_status], 'd'
     jmp end_service
+
+pause_the_game:
+	pause_loop:
+		in al, 0x60            
+		cmp al, 0x13          
+		je end_service         
+		cmp al, 0x10           
+		je end                 
+		jmp pause_loop        
+
+play:
+	jmp end_service
 
 end_service:
     mov al, 0x20
