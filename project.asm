@@ -11,6 +11,7 @@ height3: dw 12
 bird_start: dw 1460
 bird_status: db 'd'
 bird_delay: dw 0
+bird_speed: dw 0
 seed: dw 987
 oldisr: dd 0
 game_over: db 0
@@ -50,6 +51,7 @@ continue:
 
 collision_detected:
     mov byte [game_over], 1    ; Set game over flag
+	call fall_on_ground
     
     pop dx
     pop bx
@@ -133,6 +135,17 @@ end:
 
     mov ax, 0x4c00
     int 0x21
+
+timer:
+	push ax
+	inc word [cs:bird_speed]
+	push word [cs:bird_speed]
+	call slight_delay
+
+	mov al, 0x20
+	out 0x20, al
+	pop ax
+	iret
 
 update_score:
 	push bp
@@ -224,6 +237,9 @@ clearpipe2:
 	mov word [object2], 156
 	call clear_pipe
 	jmp continue_animation_2
+
+slight_delay:
+	ret
 	
 clearpipe3:
 	mov word [object3], 156
@@ -387,11 +403,22 @@ delay2:
     mov cx, 0xffff        
 outer_loop:
     push cx                
-    mov cx, 0xff       
+    mov cx, 0xcf       
 inner_loop:
     loop inner_loop        
     pop cx                 
     loop outer_loop        
+    ret
+
+delay3:
+    mov cx, 0xffff        
+outer_loop2:
+    push cx                
+    mov cx, 0x2    
+inner_loop2:
+    loop inner_loop2        
+    pop cx                 
+    loop outer_loop2        
     ret
 
 	
@@ -659,6 +686,31 @@ decrement_delay:
     jmp return
 
 return:
+    pop ax
+    ret
+
+
+fall_on_ground:
+    push ax
+fall_loop:
+    ; Check if bird_start is 3540
+    cmp word [bird_start], 3380
+    je exit_fall          ; Exit if bird_start is 3540
+
+    push word [bird_start]
+    call clear_bird
+
+    mov ax, 160
+    add word [bird_start], ax
+
+    push word [bird_start]
+    call bird
+	call delay3
+
+    mov word [bird_delay], 1
+    jmp fall_loop         ; Continue looping
+
+exit_fall:
     pop ax
     ret
 
@@ -1513,7 +1565,7 @@ check_collision:
 	; checking collision with obstacle 1
 	mov ax, [object1]
 	mov bx, [bird_start]
-	add bx, 4
+	add bx, 6
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
@@ -1562,7 +1614,7 @@ check_collision:
 	; checking collision with obstacle 2
 	mov ax, [object2]
 	mov bx, [bird_start]
-	add bx, 4
+	add bx, 6
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
@@ -1611,7 +1663,7 @@ check_collision:
 	; checking collision with obstacle 3
 	mov ax, [object3]
 	mov bx, [bird_start]
-	add bx, 4
+	add bx, 6
 	cmp ax, bx
 	je collision_detected
 	add ax, 160
